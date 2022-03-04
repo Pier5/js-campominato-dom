@@ -1,20 +1,7 @@
-// Il computer deve generare 16 numeri casuali nello stesso range 
-// della difficoltà prescelta: le bombe.
-// I numeri nella lista delle bombe non possono essere duplicati.
-// In seguito l'utente clicca su una cella: se il numero è presente 
-// nella lista dei numeri generati - abbiamo calpestato una 
-// bomba - la cella si colora di rosso
-
-// e la partita termina, altrimenti la cella 
-// cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle.
-// La partita termina quando il giocatore clicca su una bomba o raggiunge il numero
-// massimo possibile di numeri consentiti.
-// Al termine della partita il software deve comunicare il punteggio, 
-// cioè il numero di volte che l’utente ha cliccato su una cella che non era una b.
-
 
 let btnPlay = document.querySelector('#btn-play');
 let output = document.querySelector('.output');
+let outputTwo = document.querySelector('.output-two');
 let difficulty = document.querySelector('#difficulty');
 let easy = document.querySelector('#easy');
 let medium = document.querySelector('#medium');
@@ -24,7 +11,10 @@ let arrRandom = [];
 
 btnPlay.addEventListener('click', function() {
     textShadow.classList.add('shadow');
-    output.innerHTML = '';  
+    output.innerHTML = ''; 
+    outputTwo.innerHTML = ''; 
+    score = 0;
+    
     if(easy.selected) {
         for (let i = 0; i < 16; i++) {
             let randomNumber;
@@ -75,8 +65,7 @@ btnPlay.addEventListener('click', function() {
             output.append(element);
             element.style.width = `calc(100% / 7)`;
             element.style.height = `calc(100% / 7)`;
-            element.addEventListener('click', manageClick);   
-
+            element.addEventListener('click', manageClick);  
         }  
     }
 })
@@ -89,10 +78,19 @@ function manageClick() {
     cellValue = parseInt(this.innerHTML);
     if (arrRandom.includes(cellValue)) {
         this.classList.add('bomb-box');
+        outputTwo.innerHTML = `Hai perso: il tuo punteggio è ${score}`;
+        let cells = document.querySelectorAll('.box');
+        for (i = 0; i < cells.length; i++) {
+            cells[i].removeEventListener('click', manageClick);
+        }
     } else {
         this.classList.add('safe-box');
+        ++score;
     }
+    this.removeEventListener('click', manageClick);
 }
+
+
 
   
 
