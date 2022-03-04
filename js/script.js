@@ -16,13 +16,7 @@ btnPlay.addEventListener('click', function() {
     score = 0;
     
     if(easy.selected) {
-        for (let i = 0; i < 16; i++) {
-            let randomNumber;
-            do {
-                randomNumber = getRandomNumber(1, 100);
-            } while (arrRandom.includes(randomNumber))
-                arrRandom.push(randomNumber);  
-            }
+        maxBombsNumber(100);
         for (let i = 1; i <= 100; i++) {
             let element = document.createElement('div');
             element.classList.add('box');
@@ -33,13 +27,7 @@ btnPlay.addEventListener('click', function() {
             element.addEventListener('click', manageClick);   
         }  
     } else if (medium.selected) {
-        for (let i = 0; i < 16; i++) {
-            let randomNumber;
-            do {
-                randomNumber = getRandomNumber(1, 81);
-            } while (arrRandom.includes(randomNumber))
-                arrRandom.push(randomNumber);  
-            }
+        maxBombsNumber(81);
         for (let i = 1; i <= 81; i++) {
             let element = document.createElement('div');
             element.classList.add('box');
@@ -51,13 +39,7 @@ btnPlay.addEventListener('click', function() {
 
         }
     } else if (hard.selected) {
-        for (let i = 0; i < 16; i++) {
-            let randomNumber;
-            do {
-                randomNumber = getRandomNumber(1, 49);
-            } while (arrRandom.includes(randomNumber))
-                arrRandom.push(randomNumber);  
-            }
+        maxBombsNumber(49);
         for (let i = 1; i <= 49; i++) {
             let element = document.createElement('div');
             element.classList.add('box');
@@ -70,7 +52,17 @@ btnPlay.addEventListener('click', function() {
     }
 })
 
-function getRandomNumber(min, max) {
+function maxBombsNumber(max) {
+    for (let i = 0; i < 16; i++) {
+        let randomNumber;
+        do {
+            randomNumber = getRandomBombs(1, max);
+        } while (arrRandom.includes(randomNumber))
+            arrRandom.push(randomNumber);  
+        }
+}
+
+function getRandomBombs(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
