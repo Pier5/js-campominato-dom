@@ -11,7 +11,7 @@ btnPlay.addEventListener('click', function() {
     score = 0;
     
     if(easy.selected) {
-        maxBombsNumber(100);
+        maxRangeBombsNumber(100);
         for (let i = 1; i <= 100; i++) {
             let element = document.createElement('div');
             element.classList.add('box');
@@ -19,10 +19,10 @@ btnPlay.addEventListener('click', function() {
             output.append(element);
             element.style.width = `calc(100% / 10)`;
             element.style.height = `calc(100% / 10)`;    
-            element.addEventListener('click', manageClick);   
+            element.addEventListener('click', manageClick);  
         }  
     } else if (medium.selected) {
-        maxBombsNumber(81);
+        maxRangeBombsNumber(81);
         for (let i = 1; i <= 81; i++) {
             let element = document.createElement('div');
             element.classList.add('box');
@@ -31,10 +31,10 @@ btnPlay.addEventListener('click', function() {
             element.style.width = `calc(100% / 9)`;
             element.style.height = `calc(100% / 9)`;
             element.addEventListener('click', manageClick);   
-
+            
         }
     } else if (hard.selected) {
-        maxBombsNumber(49);
+        maxRangeBombsNumber(49);
         for (let i = 1; i <= 49; i++) {
             let element = document.createElement('div');
             element.classList.add('box');
@@ -42,23 +42,24 @@ btnPlay.addEventListener('click', function() {
             output.append(element);
             element.style.width = `calc(100% / 7)`;
             element.style.height = `calc(100% / 7)`;
-            element.addEventListener('click', manageClick);  
+            element.addEventListener('click', manageClick);       
         }  
     }
 })
 
-function maxBombsNumber(max) {
+
+function getRandomBombs(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+function maxRangeBombsNumber(max) {
     for (let i = 0; i < 16; i++) {
         let randomNumber;
         do {
             randomNumber = getRandomBombs(1, max);
         } while (arrRandom.includes(randomNumber))
-            arrRandom.push(randomNumber);  
-        }
-}
-
-function getRandomBombs(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
+        arrRandom.push(randomNumber);  
+    }
 }
 
 function manageClick() {
@@ -74,12 +75,19 @@ function manageClick() {
         this.classList.add('safe-box');
         ++score;
     }
+    
     this.removeEventListener('click', manageClick);
 }
 
 
+// if (score == goodCells) {
+//     outputTwo.innerHTML = `Hai vinto!! Hai evitato tutte le bombe`;
+//     let cells = document.querySelectorAll('.box');
+//     for (i = 0; i < cells.length; i++) {
+//         cells[i].removeEventListener('click', manageClick);
+//     }
+// }
 
-  
-
-
-
+// ho capito la logica per fare in modo che se trovi tutte le caselle non bombe hai vinto 
+// ma non riesco a richiamare i valori delle celle (es. i < 49) quindi non riesco a sottrarre
+// i numeri delle bombe per fare in modo che succeda.

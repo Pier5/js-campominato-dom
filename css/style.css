@@ -76,10 +76,6 @@
     margin: 10px auto;
 }
 
-.output-two {
-    padding-top: 30px;
-}
-
 .box {
     border: 1px solid black;
     display: flex;
