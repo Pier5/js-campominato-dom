@@ -1,11 +1,6 @@
-
 let btnPlay = document.querySelector('#btn-play');
 let output = document.querySelector('.output');
 let outputTwo = document.querySelector('.output-two');
-let difficulty = document.querySelector('#difficulty');
-let easy = document.querySelector('#easy');
-let medium = document.querySelector('#medium');
-let hard = document.querySelector('#hard');
 let textShadow = document.querySelector('.text-shadow');
 let arrRandom = [];
 
